@@ -10,22 +10,17 @@ install_requires = [
     'setuptools',
     'g4f',
 ]
-install_requires_win_only = [
-    'colorama>=0.2.4',
-]
-
-# Conditional dependencies:
-
+install_requires_win_only = []
 
 
 setup(
     name='Sppq',
-    version='99',
+    version='1.0',
     description='None',
     long_description='',
     long_description_content_type='text/markdown',
     url='https://github.com/Sppqq/sppq',
-    download_url=f'https://github.com/Sppqq/sppqs',
+    download_url=f'https://github.com/Sppqq/sppq',
     author='Sppq',
     author_email='sppqq@duck.com',
     license='None',
