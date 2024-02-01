@@ -2,6 +2,19 @@ from g4f import ChatCompletion, get_model_and_provider, Provider
 import g4f
 import requests
 import time
+from bs4 import BeautifulSoup
+import re
+
+def get_version_from_filename():
+    response = requests.get('https://github.com/Sppqq/sppq/blob/main/dist/')
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    for link in soup.find_all('a'):
+        filename = link.get('href')
+        match = re.search(r'sppq-(.*?)-py3-none-any.whl', filename)
+        if match:
+            version = match.group(1)
+            print(f'Версия: {version}')
 
 def str_to_class(classname):
     if classname == 'g4f.models.gpt_35_turbo':
