@@ -1,9 +1,9 @@
 from setuptools import find_packages, setup
 
 setup(
-      name='sppq',
+      name='Sppq',
       packages=find_packages(),
-      version='0.1.2',
+      version='0.1.4',
       description='I need this',
       author='SPPQ',
       setup_requires=['pytest-runner', 'g4f', 'requests', 'regex', 'bs4', 'asyncio'],

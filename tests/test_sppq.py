@@ -1,3 +1,3 @@
-from sppq import *
+import sppq
 
-printt('Hello world')
+sppq.printt('Привееееет')
