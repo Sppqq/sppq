@@ -3,7 +3,7 @@ import g4f
 import requests
 import time
 import os
-
+from asciitext import *
 
 def str_to_class(classname):
     if classname == 'g4f.models.gpt_35_turbo':
@@ -56,3 +56,6 @@ def printt(text: str, speed: float = .02, newLine=True):
 
 def cl():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def bigtext(text, font_url="https://raw.githubusercontent.com/yasserbdj96/asciitext/main/fonts/ANSI_Shadow.txt", color="#ff0000"):
+    return asciii.asciitext(font_url, text.lower(), color)

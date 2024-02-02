@@ -37,3 +37,6 @@ def retell(url):
 def cl():
     functions.cl()
     return ''
+
+def bigtext(text):
+    return functions.bigtext(text)
