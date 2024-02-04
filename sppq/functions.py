@@ -4,6 +4,7 @@ import requests
 import time
 import os
 from asciitext import *
+from tqdm import tqdm
 
 def str_to_class(classname):
     if classname == 'g4f.models.gpt_35_turbo':
@@ -62,3 +63,9 @@ def bigtext(text, font_url="https://raw.githubusercontent.com/yasserbdj96/asciit
 
 def percent(num, denom):
     return num / denom * 100
+
+def pbar(total):
+    return tqdm(total=total)
+
+def pbarupdate(pbar: tqdm):
+    pbar.update(1)
