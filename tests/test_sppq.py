@@ -1,3 +1,3 @@
 import sppq
 
-sppq.printt('Привееееет')
+sppq.printt(text=sppq.percent(100, 100))

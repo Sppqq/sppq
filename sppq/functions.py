@@ -59,3 +59,6 @@ def cl():
 
 def bigtext(text, font_url="https://raw.githubusercontent.com/yasserbdj96/asciitext/main/fonts/ANSI_Shadow.txt", color="#ff0000"):
     return asciii.asciitext(font_url, text.lower(), color)
+
+def percent(num, denom):
+    return num / denom * 100

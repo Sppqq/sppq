@@ -26,7 +26,7 @@ def check_update():
 
 
 def printt(text: str, speed: float = .02, newLine=True):
-    functions.printt(text, speed, newLine)
+    functions.printt(str(text), speed, newLine)
 
 def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
     return functions.ask_gpt(prompt, model, stream)
@@ -40,3 +40,6 @@ def cl():
 
 def bigtext(text):
     return functions.bigtext(text)
+
+def percent(num:float, denom:float):
+    return functions.percent(num, denom)
