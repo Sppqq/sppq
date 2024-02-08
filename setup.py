@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
       name='Sppq',
       packages=find_packages(),
-      version='0.1.8',
+      version='0.1.9',
       description='Library with things I need',
       author='SPPQ',
       setup_requires=['pytest-runner', 'g4f', 'requests', 'regex', 'bs4', 'asyncio', 'asciitext'],
