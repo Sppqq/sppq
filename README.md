@@ -2,19 +2,25 @@
 
 ## [Сайт](https://jingle.bio/sppq/)
 
-Установка:
+Установка
 
 ```bash
 pip install git+https://github.com/Sppqq/sppq.git@main
 ```
+Обновить
+```bash
+pip install -U git+https://github.com/Sppqq/sppq.git@main
+```
 
-или
+Способ установки локально:
 
-Скачать -> Распаковать -> Открыть папку в консоле -> Написать:
+Скачать -> Распаковать -> Открыть папку в консоле -> Написать
 
 ```bash
 pip install dist/sppq-**ВЕРСИЯ**-py3-none-any.whl
 ```
+
+
 
 # Функции
 
