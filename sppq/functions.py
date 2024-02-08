@@ -1,10 +1,26 @@
-from g4f import ChatCompletion, get_model_and_provider, Provider
-import g4f
-import requests
-import time
 import os
-from asciitext import *
-from tqdm import tqdm
+import time
+
+try:
+    from g4f import ChatCompletion, get_model_and_provider, Provider
+    import g4f
+except:
+    os.system('pip install -U g4f')
+try:
+    import requests
+except:
+    os.system('pip install -U requests')
+
+try:
+    from asciitext import *
+except:
+    os.system('pip install -U asciitext')
+
+try:
+    from tqdm import tqdm
+except:
+    os.system('pip install -U tqdm')
+
 
 def str_to_class(classname):
     if classname == 'g4f.models.gpt_35_turbo':
@@ -47,6 +63,7 @@ def retell(url):
     return url_ot
 
 def printt(text: str, speed: float = .02, newLine=True):
+    text = str(text)
     for i in text:  # Loop over the message
         # Print the one charecter, flush is used to force python to print the char
         print(i, end="", flush=True)
