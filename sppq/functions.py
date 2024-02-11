@@ -21,6 +21,20 @@ try:
 except:
     os.system('pip install -U tqdm')
 
+try:
+    from discord_webhook import DiscordWebhook
+except:
+    os.system('pip install -U discord_webhook')
+
+try:
+    import matplotlib.colors as mcolors
+except:
+    os.system('pip install -U matplotlib')
+
+try:
+    from colorama import Fore
+except:
+    os.system('pip install -U colorama')
 
 def str_to_class(classname):
     if classname == 'g4f.models.gpt_35_turbo':
@@ -30,15 +44,11 @@ def str_to_class(classname):
 
 def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
 
-    # Specify the provider manually
     provider = Provider.DeepInfra
 
-    # Set the arguments for get_model_and_provider
     ignored = None
-    # Include both "model" and "provider" arguments
     model, _ = get_model_and_provider(provider=provider, stream=stream, ignored=ignored, model=str_to_class(model))
 
-    # Create the ChatCompletion object
     response = ChatCompletion.create(
         model=model,
         messages=[{"role": "user", "content": prompt}]
@@ -64,12 +74,11 @@ def retell(url):
 
 def printt(text: str, speed: float = .02, newLine=True):
     text = str(text)
-    for i in text:  # Loop over the message
-        # Print the one charecter, flush is used to force python to print the char
+    for i in text:
         print(i, end="", flush=True)
-        time.sleep(speed)  # Sleep a little before the next one
-    if newLine:  # Check if the newLine argument is set to True
-        print()  # Print a final newline to make it act more like a normal print statement
+        time.sleep(speed)
+    if newLine:
+        print()
     return ''
 
 def cl():
@@ -86,3 +95,115 @@ def pbar(total):
 
 def pbarupdate(pbar: tqdm):
     pbar.update(1)
+
+def color2rgb(color_input):
+    return tuple([int(x*255) for x in mcolors.to_rgb(color_input)])
+
+def get_decimal_color(color_input):
+    try:
+        if isinstance(color_input, tuple) and len(color_input) == 3:
+            return int('%02x%02x%02x' % color_input, 16)
+        elif isinstance(color_input, str):
+            rgb = tuple(color2rgb(color_input))
+            return int('%02x%02x%02x' % rgb, 16)
+    except Exception as e:
+        print(f"{Fore.RED}ERROR:{Fore.RESET} {e}")
+        return None
+
+def send_webhook(webhook_url=None, description = None, embed = None, file = None, title = None, color = None, author_name = None,
+                 author_url = None, author_icon_url = None, footer_text = None, footer_icon_url = None, thumbnail_url = None,
+                 username = None, avatar_url = None, content = None):
+    if webhook_url is None:
+        printt(f'{Fore.RED}Вы не указали webhook_url{Fore.RESET}')
+    webhook = DiscordWebhook(url=webhook_url)
+    if description is None and \
+        embed is None and \
+        file is None and \
+        title is None and \
+        color is None and \
+        author_name is None and \
+        author_url is None and \
+        author_icon_url is None and \
+        footer_text is None and \
+        footer_icon_url is None and \
+        thumbnail_url is None and \
+        username is None and \
+        avatar_url is None and \
+        content is None:
+        embed = {
+            "username": "SppqLib (username параметр)",
+            "avatar_url": "https://cdn.discordapp.com/avatars/758050281320742950/a_168ee7e42eb2937892c7533e7b5d1b6c.gif?size=1024",
+            "content": "Content параметр",
+            "title": 'Тестовое сообщение от из библиотеки sppq (title параметр)',
+            "description": 'https://github.com/Sppqq/sppq/blob/main/README.md',
+            "color": get_decimal_color('red'),
+            "author": {
+                "name": 'SppqLib (author параметр)',
+                "url": '',
+                "icon_url": 'https://cdn.discordapp.com/avatars/758050281320742950/a_168ee7e42eb2937892c7533e7b5d1b6c.gif?size=1024'
+            },
+            "fields": [
+                {"name": '', "value": '', "inline": False},
+            ],
+            "thumbnail": {"url": ''},
+            "image": {"url": ''},
+            "footer": {"text": 'footer параметр'}
+        }
+        webhook.add_embed(embed)
+        response = webhook.execute()
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    else:
+        embed = {
+            "username": "",
+            "avatar_url": "",
+            "content": "",
+            "title": '',
+            "description": '',
+            "color": '',
+            "author": {
+                "name": '',
+                "url": '',
+                "icon_url": ''
+            },
+            "fields": [
+                {"name": '', "value": '', "inline": False},
+            ],
+            "thumbnail": {"url": thumbnail_url},
+            "image": {"url": footer_icon_url},
+            "footer": {"text": footer_text}
+            }
+    if description:
+        embed['description'] = description
+    if file:
+        embed['file'] = file
+    if title:
+        embed['title'] = title
+    if color:
+        embed['color'] = get_decimal_color(color)
+    if author_name:
+        embed['author']['name'] = author_name
+    if author_url:
+        embed['author']['url'] = author_url
+    if author_icon_url:
+        embed['author']['icon_url'] = author_icon_url
+    if footer_icon_url:
+        embed['image']['url'] = footer_icon_url
+    if footer_text:
+        embed['footer']['text'] = footer_text
+    if thumbnail_url:
+        embed['thumbnail']['url'] = thumbnail_url
+    if username:
+        embed['username'] = username
+    if avatar_url:
+        embed['avatar_url'] = avatar_url
+    if content:
+        embed['content'] = content
+    webhook.add_embed(embed)
+    response = webhook.execute()
+    if response.status_code == 200:
+        return True
+    else:
+        return False

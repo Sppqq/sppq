@@ -1,7 +1,10 @@
 import os
 import shutil
 
-shutil.rmtree('dist')
+if os.path.exists('dist'):
+    shutil.rmtree('dist')
+else:
+    pass
 
 os.system('python setup.py bdist_wheel')
 
