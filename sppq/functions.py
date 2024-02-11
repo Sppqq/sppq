@@ -117,6 +117,27 @@ def send_webhook(webhook_url='', description = '', embed = '', file = '', title 
         printt(f'{Fore.RED}Вы не указали webhook_url{Fore.RESET}')
         exit()
     embed = {}
+    if description:
+        embed['description'] = description
+    if file:
+        embed['file'] = file
+    if title:
+        embed['title'] = title
+    if color != 'Red':
+        embed['color'] = get_decimal_color(color)
+    if author_name:
+        embed['author'] = {'name': author_name}
+    if author_url:
+        embed['author']['url'] = author_url
+    if author_icon_url:
+        embed['author']['icon_url'] = author_icon_url
+    if footer_text:
+        embed['footer'] = {'text': footer_text}
+    if footer_icon_url:
+        embed['footer']['icon_url'] = footer_icon_url
+    if thumbnail_url:
+        embed['thumbnail'] = {'url': thumbnail_url}
+
     webhook = DiscordWebhook(url=webhook_url, username=username, avatar_url=avatar_url, content=content)
     if embed == {}:
         pass
