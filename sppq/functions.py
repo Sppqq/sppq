@@ -110,100 +110,22 @@ def get_decimal_color(color_input):
         print(f"{Fore.RED}ERROR:{Fore.RESET} {e}")
         return None
 
-def send_webhook(webhook_url=None, description = None, embed = None, file = None, title = None, color = None, author_name = None,
-                 author_url = None, author_icon_url = None, footer_text = None, footer_icon_url = None, thumbnail_url = None,
-                 username = None, avatar_url = None, content = None):
+def send_webhook(webhook_url='', description = '', embed = '', file = '', title = '', color = 'Red', author_name = '',
+                 author_url = '', author_icon_url = '', footer_text = '', footer_icon_url = '', thumbnail_url = '',
+                 username = 'SppqLib', avatar_url = 'http://tinyurl.com/23gawwzy', content = 'Message from SppqLib'):
     if webhook_url is None:
         printt(f'{Fore.RED}Вы не указали webhook_url{Fore.RESET}')
-    webhook = DiscordWebhook(url=webhook_url)
-    if description is None and \
-        embed is None and \
-        file is None and \
-        title is None and \
-        color is None and \
-        author_name is None and \
-        author_url is None and \
-        author_icon_url is None and \
-        footer_text is None and \
-        footer_icon_url is None and \
-        thumbnail_url is None and \
-        username is None and \
-        avatar_url is None and \
-        content is None:
-        embed = {
-            "username": "SppqLib (username параметр)",
-            "avatar_url": "https://cdn.discordapp.com/avatars/758050281320742950/a_168ee7e42eb2937892c7533e7b5d1b6c.gif?size=1024",
-            "content": "Content параметр",
-            "title": 'Тестовое сообщение от из библиотеки sppq (title параметр)',
-            "description": 'https://github.com/Sppqq/sppq/blob/main/README.md',
-            "color": get_decimal_color('red'),
-            "author": {
-                "name": 'SppqLib (author параметр)',
-                "url": '',
-                "icon_url": 'https://cdn.discordapp.com/avatars/758050281320742950/a_168ee7e42eb2937892c7533e7b5d1b6c.gif?size=1024'
-            },
-            "fields": [
-                {"name": '', "value": '', "inline": False},
-            ],
-            "thumbnail": {"url": ''},
-            "image": {"url": ''},
-            "footer": {"text": 'footer параметр'}
-        }
-        webhook.add_embed(embed)
-        response = webhook.execute()
-        if response.status_code == 200:
-            return True
-        else:
-            return False
+        exit()
+    embed = {}
+    webhook = DiscordWebhook(url=webhook_url, username=username, avatar_url=avatar_url, content=content)
+    if embed == {}:
+        pass
     else:
-        embed = {
-            "username": "",
-            "avatar_url": "",
-            "content": "",
-            "title": '',
-            "description": '',
-            "color": '',
-            "author": {
-                "name": '',
-                "url": '',
-                "icon_url": ''
-            },
-            "fields": [
-                {"name": '', "value": '', "inline": False},
-            ],
-            "thumbnail": {"url": thumbnail_url},
-            "image": {"url": footer_icon_url},
-            "footer": {"text": footer_text}
-            }
-    if description:
-        embed['description'] = description
-    if file:
-        embed['file'] = file
-    if title:
-        embed['title'] = title
-    if color:
-        embed['color'] = get_decimal_color(color)
-    if author_name:
-        embed['author']['name'] = author_name
-    if author_url:
-        embed['author']['url'] = author_url
-    if author_icon_url:
-        embed['author']['icon_url'] = author_icon_url
-    if footer_icon_url:
-        embed['image']['url'] = footer_icon_url
-    if footer_text:
-        embed['footer']['text'] = footer_text
-    if thumbnail_url:
-        embed['thumbnail']['url'] = thumbnail_url
-    if username:
-        embed['username'] = username
-    if avatar_url:
-        embed['avatar_url'] = avatar_url
-    if content:
-        embed['content'] = content
-    webhook.add_embed(embed)
+        webhook.add_embed(embed)
     response = webhook.execute()
     if response.status_code == 200:
         return True
     else:
         return False
+
+printt(send_webhook(webhook_url='https://discord.com/api/webhooks/1136007842969702421/VLVRtO3xne0Euc92_Hf5D7Z4qvXzLU859q6_-uobDcKx2WOq1urETHgzIZqkj8Yy5E1b'))
