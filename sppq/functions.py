@@ -1,54 +1,53 @@
 import os
 import time
 
-try:
-    from g4f import ChatCompletion, get_model_and_provider, Provider
-    import g4f
-except:
-    os.system('pip install -U g4f')
-try:
-    import requests
-except:
-    os.system('pip install -U requests')
+try: from g4f import ChatCompletion, get_model_and_provider, Provider; import g4f 
+except: os.system('pip install -U g4f')
 
-try:
-    from asciitext import *
-except:
-    os.system('pip install -U asciitext')
+try: import requests 
+except: os.system('pip install -U requests')
 
-try:
-    from tqdm import tqdm
-except:
-    os.system('pip install -U tqdm')
+try: from asciitext import * 
+except: os.system('pip install -U asciitext')
 
-try:
-    from discord_webhook import DiscordWebhook
-except:
-    os.system('pip install -U discord_webhook')
+try: from tqdm import tqdm 
+except: os.system('pip install -U tqdm')
 
-try:
-    import matplotlib.colors as mcolors
-except:
-    os.system('pip install -U matplotlib')
+try: from discord_webhook import DiscordWebhook 
+except: os.system('pip install -U discord_webhook')
 
-try:
-    from colorama import Fore
-except:
-    os.system('pip install -U colorama')
+try: import matplotlib.colors as mcolors
+except: os.system('pip install -U matplotlib')
+
+try: from colorama import Fore 
+except: os.system('pip install -U colorama')
 
 def str_to_class(classname):
     if classname == 'g4f.models.gpt_35_turbo':
-        return g4f.models.gpt_35_turbo 
+        return g4f.models.gpt_35_turbo
     elif classname == 'g4f.models.gpt_4':
         return g4f.models.gpt_4
+    elif classname == 'Copilot':
+        return 'Copilot'
 
 def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
 
-    provider = Provider.DeepInfra
+    model = str_to_class(model)
 
+    if model == 'Copilot':
+        model = "gpt-4"
+        provider = g4f.Provider.Bing
+    else:
+        provider = Provider.DeepInfra
+
+
+    # Set the arguments for get_model_and_provider
+    stream = None
     ignored = None
-    model, _ = get_model_and_provider(provider=provider, stream=stream, ignored=ignored, model=str_to_class(model))
+    # Include both "model" and "provider" arguments
+    model, _ = get_model_and_provider(provider=provider, stream=stream, ignored=ignored, model=model)
 
+    # Create the ChatCompletion object
     response = ChatCompletion.create(
         model=model,
         messages=[{"role": "user", "content": prompt}]
