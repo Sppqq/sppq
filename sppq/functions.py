@@ -7,7 +7,7 @@ except: os.system('pip install -U g4f')
 try: import requests 
 except: os.system('pip install -U requests')
 
-try: from asciitext import * 
+try: import asciitext as a
 except: os.system('pip install -U asciitext')
 
 try: from tqdm import tqdm 
@@ -23,14 +23,25 @@ try: from colorama import Fore
 except: os.system('pip install -U colorama')
 
 def str_to_class(classname):
-    if classname == 'g4f.models.gpt_35_turbo':
+    classname = classname.lower()
+    if classname in 'g4f.models.gpt_35_turbo':
         return g4f.models.gpt_35_turbo
-    elif classname == 'g4f.models.gpt_4':
+    elif classname in 'g4f.models.gpt_4':
         return g4f.models.gpt_4
-    elif classname == 'Copilot':
+    elif classname in 'copilot':
         return 'Copilot'
+    else:
+        raise ValueError(f'Unknown model: {classname}')
 
 def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
+    """
+    prompt string
+    model:
+        gpt_35_turbo
+        gpt_4
+        copilot
+    stream: bool
+    """
 
     model = str_to_class(model)
 
@@ -84,7 +95,7 @@ def cl():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def bigtext(text, font_url="https://raw.githubusercontent.com/yasserbdj96/asciitext/main/fonts/ANSI_Shadow.txt", color="#ff0000"):
-    return asciii.asciitext(font_url, text.lower(), color)
+    return a.asciii.asciitext(font_url, text.lower(), color)
 
 def percent(num, denom):
     return num / denom * 100
@@ -111,7 +122,7 @@ def get_decimal_color(color_input):
 
 def send_webhook(webhook_url='', description = '', embed = '', file = '', title = '', color = 'Red', author_name = '',
                  author_url = '', author_icon_url = '', footer_text = '', footer_icon_url = '', thumbnail_url = '',
-                 username = 'SppqLib', avatar_url = 'http://tinyurl.com/23gawwzy', content = 'Message from SppqLib'):
+                 username = 'SppqLib', avatar_url = 'https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image_variant/4492ffef8e09_w240.webp', content = 'Message from SppqLib'):
     if webhook_url is None:
         printt(f'{Fore.RED}Вы не указали webhook_url{Fore.RESET}')
         exit()
