@@ -35,7 +35,7 @@ def str_to_class(classname):
     else:
         return classname
 
-def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
+def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None, provider = None)->str:
     """
     prompt string
     model:
@@ -44,14 +44,14 @@ def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
         copilot
     stream: bool
     """
+    if provider is None:
+        model = str_to_class(model)
 
-    model = str_to_class(model)
-
-    if model == 'Copilot':
-        model = "gpt-4"
-        provider = Provider.Bing
-    else:
-        provider = Provider.Liaobots
+        if model == 'Copilot':
+            model = "gpt-4"
+            provider = Provider.Bing
+        else:
+            provider = Provider.Liaobots
 
     stream = None
     ignored = None
