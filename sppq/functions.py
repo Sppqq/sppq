@@ -1,7 +1,7 @@
 import os
 import time
 
-try: from g4f import ChatCompletion, get_model_and_provider, Provider; import g4f 
+try: from g4f import ChatCompletion, get_model_and_provider, Provider; import g4f; from g4f.client import Client
 except: os.system('pip install -U g4f')
 
 try: import requests 
@@ -22,6 +22,8 @@ except: os.system('pip install -U matplotlib')
 try: from colorama import Fore 
 except: os.system('pip install -U colorama')
 
+client = Client()
+
 def str_to_class(classname):
     classname = classname.lower()
     if classname in 'g4f.models.gpt_35_turbo':
@@ -31,7 +33,7 @@ def str_to_class(classname):
     elif classname in 'copilot':
         return 'Copilot'
     else:
-        raise ValueError(f'Unknown model: {classname}')
+        return classname
 
 def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
     """
@@ -47,24 +49,21 @@ def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None)->str:
 
     if model == 'Copilot':
         model = "gpt-4"
-        provider = g4f.Provider.Bing
+        provider = Provider.Bing
     else:
-        provider = Provider.DeepInfra
+        provider = Provider.Liaobots
 
-
-    # Set the arguments for get_model_and_provider
     stream = None
     ignored = None
-    # Include both "model" and "provider" arguments
-    model, _ = get_model_and_provider(provider=provider, stream=stream, ignored=ignored, model=model)
-
-    # Create the ChatCompletion object
-    response = ChatCompletion.create(
+    response = client.chat.completions.create(
+        stream=stream,
+        ignored=ignored,
+        provider=provider,
         model=model,
-        messages=[{"role": "user", "content": prompt}]
+        messages=[{"role": "user", "content": prompt}],
     )
+    return response.choices[0].message.content
 
-    return response
 
 def retell(url):
     endpoint = 'https://300.ya.ru/api/sharing-url'
