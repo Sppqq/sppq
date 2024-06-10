@@ -58,7 +58,7 @@ Sppq предоставляет следующие функции
 - `pbarupdate(pb)`: Обновляет индикатор выполнения.
 - `pbar()`: Инициализирует индикатор выполнения.
 - `color2rgb('color')`: Переводит цвет в RGB
-- `send_webhook(webhook_url, description, embed, file, title, color, author_name, author_url, author_icon_url, footer_text, footer_icon_url, thumbnail_url, username, avatar_url, content)`: Отправляет вебхук в дискорд
+- `send_webhook(webhook_url, description, embed, file, title, color, author_name, author_url, author_icon_url, footer_text, footer_icon_url, thumbnail_url, username, avatar_url, content)`: Отправляетч через вебхук в дискорд
 
 ## Примеры
 
