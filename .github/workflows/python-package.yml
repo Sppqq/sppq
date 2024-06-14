@@ -38,3 +38,8 @@ jobs:
     - name: Build
       run: |
         python build.py
+    - name: Upload pytest test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-results-${{ matrix.python-version }}
+        path: dist/Sppq-${{ matrix.python-version }}-py3-none-any.whl
