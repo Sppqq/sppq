@@ -5,3 +5,4 @@ tqdm
 discord_webhook
 matplotlib
 colorama
+setuptools
