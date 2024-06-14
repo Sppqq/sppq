@@ -1,0 +1,7 @@
+g4f
+requests
+asciitext
+tqdm
+discord_webhook
+matplotlib
+colorama
