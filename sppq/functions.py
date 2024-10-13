@@ -1,41 +1,30 @@
 import os
 import time
+# import g4f
+# from g4f import Provider
+# from g4f.client import Client
+import requests
+import asciitext as a
+from tqdm import tqdm
+from discord_webhook import DiscordWebhook
+import matplotlib.colors as mcolors
+from colorama import Fore
 
-try: from g4f import ChatCompletion, get_model_and_provider, Provider; import g4f; from g4f.client import Client
-except: os.system('pip install -U g4f')
+# client = Client()
 
-try: import requests 
-except: os.system('pip install -U requests')
-
-try: import asciitext as a
-except: os.system('pip install -U asciitext')
-
-try: from tqdm import tqdm 
-except: os.system('pip install -U tqdm')
-
-try: from discord_webhook import DiscordWebhook 
-except: os.system('pip install -U discord_webhook')
-
-try: import matplotlib.colors as mcolors
-except: os.system('pip install -U matplotlib')
-
-try: from colorama import Fore 
-except: os.system('pip install -U colorama')
-
-client = Client()
-
-def str_to_class(classname):
-    classname = classname.lower()
-    if classname in 'g4f.models.gpt_35_turbo':
-        return g4f.models.gpt_35_turbo
-    elif classname in 'g4f.models.gpt_4':
-        return g4f.models.gpt_4
-    elif classname in 'copilot':
-        return 'Copilot'
-    else:
-        return classname
+# def str_to_class(classname):
+#     classname = classname.lower()
+#     if classname in 'g4f.models.gpt_35_turbo':
+#         return g4f.models.gpt_35_turbo
+#     elif classname in 'g4f.models.gpt_4':
+#         return g4f.models.gpt_4
+#     elif classname in 'copilot':
+#         return 'Copilot'
+#     else:
+#         return classname
 
 def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None, provider = None)->str:
+    raise NotImplementedError
     """
     prompt string
     model:
