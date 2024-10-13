@@ -21,7 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        # Update to v4 or later
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
@@ -38,8 +39,9 @@ jobs:
       - name: Build
         run: |
           python build.py
-      - name: Upload all .whl files from dist
+      - name: Upload all .whl files from dist (fix needed)
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-results
-          path: dist/*.whl  # Upload all files with the .whl extension in the dist directory
+          name: pytest-results  # Adjust name as needed
+          # Fix the path if needed (see next step)
+          path: dist/*.whl
