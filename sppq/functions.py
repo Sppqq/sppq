@@ -25,33 +25,33 @@ from colorama import Fore
 
 def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None, provider = None)->str:
     raise NotImplementedError
-    """
-    prompt string
-    model:
-        gpt_35_turbo
-        gpt_4
-        copilot
-    stream: bool
-    """
-    if provider is None:
-        model = str_to_class(model)
+    # """
+    # prompt string
+    # model:
+    #     gpt_35_turbo
+    #     gpt_4
+    #     copilot
+    # stream: bool
+    # """
+    # if provider is None:
+    #     model = str_to_class(model)
 
-        if model == 'Copilot':
-            model = "gpt-4"
-            provider = Provider.Bing
-        else:
-            provider = Provider.Liaobots
+    #     if model == 'Copilot':
+    #         model = "gpt-4"
+    #         provider = Provider.Bing
+    #     else:
+    #         provider = Provider.Liaobots
 
-    stream = None
-    ignored = None
-    response = client.chat.completions.create(
-        stream=stream,
-        ignored=ignored,
-        provider=provider,
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.choices[0].message.content
+    # stream = None
+    # ignored = None
+    # response = client.chat.completions.create(
+    #     stream=stream,
+    #     ignored=ignored,
+    #     provider=provider,
+    #     model=model,
+    #     messages=[{"role": "user", "content": prompt}],
+    # )
+    # return response.choices[0].message.content
 
 
 def retell(url):
