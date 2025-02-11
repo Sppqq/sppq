@@ -1,27 +1,29 @@
-from setuptools import find_packages, setup
-import re
-
-v = open('sppq/__init__.py', 'r').read()
-
-match = re.search(r"__version__ = '(.*)'", v)
-if match:
-    version = match.group(1)
+from setuptools import setup, find_packages
 
 setup(
-      name='Sppq',
-      packages=find_packages(),
-      version=version,
-      description='Library with many functions',
-      author='SPPQ',
-      install_requires=[
-          'g4f',
-          'requests',
-          'asciitext',
-          'tqdm',
-          'discord_webhook',
-          'matplotlib',
-          'colorama'
-      ],
-      python_requires='>=3.9',
-      test_suite='tests',
+    name="sppq",
+    version="0.1.0",
+    packages=find_packages(),
+    install_requires=[
+        "requests>=2.31.0",
+        "asciitext>=1.1.1",
+        "tqdm>=4.66.1",
+        "discord-webhook>=1.3.0",
+        "matplotlib>=3.8.0",
+        "colorama>=0.4.6",
+    ],
+    python_requires=">=3.9",
+    author="sppq",
+    description="Utility library for various functions",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/sppq/sppq",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
 )

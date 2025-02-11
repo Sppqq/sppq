@@ -23,7 +23,7 @@ from colorama import Fore
 #     else:
 #         return classname
 
-def ask_gpt(prompt:str, model='g4f.models.gpt_35_turbo', stream=None, provider = None)->str:
+def ask_gpt(prompt: str, model='g4f.models.gpt_35_turbo', stream=None, provider=None) -> str:
     raise NotImplementedError
     # """
     # prompt string
@@ -58,10 +58,10 @@ def retell(url):
     endpoint = 'https://300.ya.ru/api/sharing-url'
     response = requests.post(
         endpoint,
-        json = {
-        'article_url': url
-        },
-        headers = {'Authorization': 'OAuth y0_AgAAAAAwgCahAAoX4wAAAADzsA5heFqVG4hKTGKDW5CMJFkcJedAF-8'}
+        json={'article_url': url},
+        headers={
+            'Authorization': 'OAuth y0_AgAAAAAwgCahAAoX4wAAAADzsA5heFqVG4hKTGKDW5CMJFkcJedAF-8'
+        }
     )
     status = response.json().get('status')
     if status == 'success':
@@ -70,7 +70,8 @@ def retell(url):
         url_ot = 'https://300.ya.ru/'
     return url_ot
 
-def printt(text: str, speed: float = .02, newLine=True):
+
+def printt(text: str, speed: float = 0.02, newLine=True):
     text = str(text)
     for i in text:
         print(i, end="", flush=True)
@@ -79,23 +80,31 @@ def printt(text: str, speed: float = .02, newLine=True):
         print()
     return ''
 
+
 def cl():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def bigtext(text, font_url="https://raw.githubusercontent.com/yasserbdj96/asciitext/main/fonts/ANSI_Shadow.txt", color="#ff0000"):
+
+def bigtext(text, font_url="https://raw.githubusercontent.com/yasserbdj96/asciitext/main/fonts/ANSI_Shadow.txt",
+           color="#ff0000"):
     return a.asciii.asciitext(font_url, text.lower(), color)
+
 
 def percent(num, denom):
     return num / denom * 100
 
+
 def pbar(total):
     return tqdm(total=total)
+
 
 def pbarupdate(pbar: tqdm):
     pbar.update(1)
 
+
 def color2rgb(color_input):
-    return tuple([int(x*255) for x in mcolors.to_rgb(color_input)])
+    return tuple([int(x * 255) for x in mcolors.to_rgb(color_input)])
+
 
 def get_decimal_color(color_input):
     try:
@@ -108,12 +117,28 @@ def get_decimal_color(color_input):
         print(f"{Fore.RED}ERROR:{Fore.RESET} {e}")
         return None
 
-def send_webhook(webhook_url='', description = '', embed = '', file = '', title = '', color = 'Red', author_name = '',
-                 author_url = '', author_icon_url = '', footer_text = '', footer_icon_url = '', thumbnail_url = '',
-                 username = 'SppqLib', avatar_url = 'https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image_variant/4492ffef8e09_w240.webp', content = 'Message from SppqLib'):
+
+def send_webhook(
+    webhook_url='',
+    description='',
+    embed='',
+    file='',
+    title='',
+    color='Red',
+    author_name='',
+    author_url='',
+    author_icon_url='',
+    footer_text='',
+    footer_icon_url='',
+    thumbnail_url='',
+    username='SppqLib',
+    avatar_url='https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image_variant/4492ffef8e09_w240.webp',
+    content='Message from SppqLib'
+):
     if webhook_url is None:
         printt(f'{Fore.RED}Вы не указали webhook_url{Fore.RESET}')
         exit()
+
     embed = {}
     if description:
         embed['description'] = description
@@ -125,24 +150,19 @@ def send_webhook(webhook_url='', description = '', embed = '', file = '', title 
         embed['color'] = get_decimal_color(color)
     if author_name:
         embed['author'] = {'name': author_name}
-    if author_url:
-        embed['author']['url'] = author_url
-    if author_icon_url:
-        embed['author']['icon_url'] = author_icon_url
+        if author_url:
+            embed['author']['url'] = author_url
+        if author_icon_url:
+            embed['author']['icon_url'] = author_icon_url
     if footer_text:
         embed['footer'] = {'text': footer_text}
-    if footer_icon_url:
-        embed['footer']['icon_url'] = footer_icon_url
+        if footer_icon_url:
+            embed['footer']['icon_url'] = footer_icon_url
     if thumbnail_url:
         embed['thumbnail'] = {'url': thumbnail_url}
 
     webhook = DiscordWebhook(url=webhook_url, username=username, avatar_url=avatar_url, content=content)
-    if embed == {}:
-        pass
-    else:
+    if embed:
         webhook.add_embed(embed)
     response = webhook.execute()
-    if response.status_code == 200:
-        return True
-    else:
-        return False
+    return response.status_code == 200
