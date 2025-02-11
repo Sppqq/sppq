@@ -13,7 +13,15 @@ setup(
       version=version,
       description='Library with many functions',
       author='SPPQ',
-      setup_requires=['pytest-runner', 'g4f', 'requests', 'regex', 'bs4', 'asyncio', 'asciitext'],
-      tests_require=['pytest==4.4.1', 'pytest-runner', 'g4f', 'requests', 'regex', 'bs4', 'asyncio', 'asciitext'],
+      install_requires=[
+          'g4f',
+          'requests',
+          'asciitext',
+          'tqdm',
+          'discord_webhook',
+          'matplotlib',
+          'colorama'
+      ],
+      python_requires='>=3.9',
       test_suite='tests',
 )
