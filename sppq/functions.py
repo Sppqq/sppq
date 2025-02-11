@@ -114,12 +114,28 @@ def get_decimal_color(color_input: str | tuple) -> int | None:
         return None
 
 
+def _create_author(name: str, url: str = '', icon_url: str = '') -> dict:
+    author = {'name': name}
+    if url:
+        author['url'] = url
+    if icon_url:
+        author['icon_url'] = icon_url
+    return author
+
+
+def _create_footer(text: str, icon_url: str = '') -> dict:
+    footer = {'text': text}
+    if icon_url:
+        footer['icon_url'] = icon_url
+    return footer
+
+
 def create_embed(description: str = '', file: str = '', title: str = '', color: str = 'Red',
                 author_name: str = '', author_url: str = '', author_icon_url: str = '',
                 footer_text: str = '', footer_icon_url: str = '', thumbnail_url: str = '') -> dict:
     """Create Discord embed dictionary with provided parameters."""
     embed = {}
-    
+
     if description:
         embed['description'] = description
     if file:
@@ -128,22 +144,16 @@ def create_embed(description: str = '', file: str = '', title: str = '', color: 
         embed['title'] = title
     if color != 'Red':
         embed['color'] = get_decimal_color(color)
-        
+
     if author_name:
-        embed['author'] = {'name': author_name}
-        if author_url:
-            embed['author']['url'] = author_url
-        if author_icon_url:
-            embed['author']['icon_url'] = author_icon_url
-            
+        embed['author'] = _create_author(author_name, author_url, author_icon_url)
+
     if footer_text:
-        embed['footer'] = {'text': footer_text}
-        if footer_icon_url:
-            embed['footer']['icon_url'] = footer_icon_url
-            
+        embed['footer'] = _create_footer(footer_text, footer_icon_url)
+
     if thumbnail_url:
         embed['thumbnail'] = {'url': thumbnail_url}
-        
+
     return embed
 
 
@@ -181,7 +191,7 @@ def send_webhook(
         author_name, author_url, author_icon_url,
         footer_text, footer_icon_url, thumbnail_url
     )
-    
+
     if embed_dict:
         webhook.add_embed(embed_dict)
 

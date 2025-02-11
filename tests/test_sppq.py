@@ -35,4 +35,11 @@ def test_color2rgb():
 def test_get_decimal_color():
     assert get_decimal_color('red') == 16711680
 
-printt('test complete')
+
+def test_send_webhook():
+    # Тест с невалидным URL должен вернуть False
+    assert send_webhook('') is False
+
+
+if __name__ == '__main__':
+    printt('test complete')
