@@ -54,7 +54,7 @@ def ask_gpt(prompt: str, model='g4f.models.gpt_35_turbo', stream=None, provider=
     # return response.choices[0].message.content
 
 
-def retell(url):
+def retell(url: str) -> str:
     endpoint = 'https://300.ya.ru/api/sharing-url'
     response = requests.post(
         endpoint,
@@ -64,14 +64,10 @@ def retell(url):
         }
     )
     status = response.json().get('status')
-    if status == 'success':
-        url_ot = response.json()['sharing_url']
-    else:
-        url_ot = 'https://300.ya.ru/'
-    return url_ot
+    return response.json()['sharing_url'] if status == 'success' else 'https://300.ya.ru/'
 
 
-def printt(text: str, speed: float = 0.02, newLine=True):
+def printt(text: str, speed: float = 0.02, newLine: bool = True) -> str:
     text = str(text)
     for i in text:
         print(i, end="", flush=True)
@@ -81,32 +77,32 @@ def printt(text: str, speed: float = 0.02, newLine=True):
     return ''
 
 
-def cl():
+def cl() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def bigtext(text, font_url="https://raw.githubusercontent.com/yasserbdj96/asciitext/main/fonts/ANSI_Shadow.txt",
-           color="#ff0000"):
+def bigtext(text: str, font_url: str = "https://raw.githubusercontent.com/yasserbdj96/asciitext/main/fonts/ANSI_Shadow.txt",
+            color: str = "#ff0000") -> str:
     return a.asciii.asciitext(font_url, text.lower(), color)
 
 
-def percent(num, denom):
+def percent(num: float, denom: float) -> float:
     return num / denom * 100
 
 
-def pbar(total):
+def pbar(total: int) -> tqdm:
     return tqdm(total=total)
 
 
-def pbarupdate(pbar: tqdm):
+def pbarupdate(pbar: tqdm) -> None:
     pbar.update(1)
 
 
-def color2rgb(color_input):
+def color2rgb(color_input: str) -> tuple:
     return tuple([int(x * 255) for x in mcolors.to_rgb(color_input)])
 
 
-def get_decimal_color(color_input):
+def get_decimal_color(color_input: str | tuple) -> int | None:
     try:
         if isinstance(color_input, tuple) and len(color_input) == 3:
             return int('%02x%02x%02x' % color_input, 16)
@@ -118,28 +114,12 @@ def get_decimal_color(color_input):
         return None
 
 
-def send_webhook(
-    webhook_url='',
-    description='',
-    embed='',
-    file='',
-    title='',
-    color='Red',
-    author_name='',
-    author_url='',
-    author_icon_url='',
-    footer_text='',
-    footer_icon_url='',
-    thumbnail_url='',
-    username='SppqLib',
-    avatar_url='https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image_variant/4492ffef8e09_w240.webp',
-    content='Message from SppqLib'
-):
-    if webhook_url is None:
-        printt(f'{Fore.RED}Вы не указали webhook_url{Fore.RESET}')
-        exit()
-
+def create_embed(description: str = '', file: str = '', title: str = '', color: str = 'Red',
+                author_name: str = '', author_url: str = '', author_icon_url: str = '',
+                footer_text: str = '', footer_icon_url: str = '', thumbnail_url: str = '') -> dict:
+    """Create Discord embed dictionary with provided parameters."""
     embed = {}
+    
     if description:
         embed['description'] = description
     if file:
@@ -148,21 +128,62 @@ def send_webhook(
         embed['title'] = title
     if color != 'Red':
         embed['color'] = get_decimal_color(color)
+        
     if author_name:
         embed['author'] = {'name': author_name}
         if author_url:
             embed['author']['url'] = author_url
         if author_icon_url:
             embed['author']['icon_url'] = author_icon_url
+            
     if footer_text:
         embed['footer'] = {'text': footer_text}
         if footer_icon_url:
             embed['footer']['icon_url'] = footer_icon_url
+            
     if thumbnail_url:
         embed['thumbnail'] = {'url': thumbnail_url}
+        
+    return embed
 
-    webhook = DiscordWebhook(url=webhook_url, username=username, avatar_url=avatar_url, content=content)
-    if embed:
-        webhook.add_embed(embed)
+
+def send_webhook(
+    webhook_url: str = '',
+    description: str = '',
+    embed: str = '',
+    file: str = '',
+    title: str = '',
+    color: str = 'Red',
+    author_name: str = '',
+    author_url: str = '',
+    author_icon_url: str = '',
+    footer_text: str = '',
+    footer_icon_url: str = '',
+    thumbnail_url: str = '',
+    username: str = 'SppqLib',
+    avatar_url: str = 'https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image_variant/4492ffef8e09_w240.webp',
+    content: str = 'Message from SppqLib'
+) -> bool:
+    """Send a message to Discord webhook with optional embed."""
+    if not webhook_url:
+        printt(f'{Fore.RED}Вы не указали webhook_url{Fore.RESET}')
+        return False
+
+    webhook = DiscordWebhook(
+        url=webhook_url,
+        username=username,
+        avatar_url=avatar_url,
+        content=content
+    )
+
+    embed_dict = create_embed(
+        description, file, title, color,
+        author_name, author_url, author_icon_url,
+        footer_text, footer_icon_url, thumbnail_url
+    )
+    
+    if embed_dict:
+        webhook.add_embed(embed_dict)
+
     response = webhook.execute()
     return response.status_code == 200
