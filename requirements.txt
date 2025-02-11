@@ -1,5 +1,5 @@
 requests==2.31.0
-asciitext==1.1.1
+asciitext==0.0.5
 tqdm==4.66.1
 discord-webhook==1.3.0
 matplotlib==3.8.0
