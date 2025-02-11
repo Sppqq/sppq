@@ -6,7 +6,7 @@ if os.path.exists('dist'):
 else:
     pass
 
-os.system('python setup.py bdist_wheel')
+os.system('python -m build')
 
 shutil.rmtree('.eggs', ignore_errors=True)
 shutil.rmtree('build', ignore_errors=True)
