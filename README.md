@@ -1,84 +1,121 @@
+# 🚀 Sppq
 
-# Sppq
+[🇷🇺 Русская версия](README.ru.md)
 
-Sppq — это универсальный пакет Python, предлагающий набор утилит для повышения производительности и автоматизации задач. От создания больших текстовых дисплеев до интеграции с GPT для обработки естественного языка — Sppq упрощает различные операции с помощью простого интерфейса Python.
+> 🛠️ A versatile Python package offering a set of utilities to enhance productivity and automate tasks. From creating large text displays to integrating with GPT for natural language processing, Sppq simplifies various operations through a simple Python interface.
 
-## Оглавление
+## 📑 Table of Contents
 
-- [Установка](#Установка)
-- [Применение](#Применение)
-- [Функции](#Функции)
-- [Примеры](#Примеры)
+- [📥 Installation](#installation)
+- [🔨 Usage](#usage)
+- [⚙️ Functions](#functions)
+- [💡 Examples](#examples)
 
-## Установка
+## 📥 Installation
 
-Чтобы установить Sppq непосредственно из репозитория GitHub, используйте следующую команду:
+### 📦 From PyPI (Recommended)
+
+```bash
+pip install sppq
+```
+
+### 🔄 From GitHub Repository
 
 ```bash
 pip install git+https://github.com/Sppqq/sppq.git@main
 ```
 
-Чтобы обновить Sppq до последней версии:
+To update to the latest version:
 
 ```bash
 pip install -U git+https://github.com/Sppqq/sppq.git@main
 ```
 
-Для локальной установки:
+### 💾 Local Installation
 
-1. Загрузите пакет
-2. Разархивируйте пакет.
-3. Откройте папку пакета в консоли.
-4. Установите с помощью pip с файлом .whl:
+1. Download the package
+2. Unzip the package
+3. Open the package folder in the console
+4. Install using pip with the .whl file:
 
 ```bash
 pip install dist/sppq-**VERSION**-py3-none-any.whl
 ```
 
-Замените `**VERSION**` актуальным номером версии Sppq, которую вы скачали.
+> ℹ️ Replace `**VERSION**` with the actual version number of Sppq you downloaded.
 
-## Применение
+## 🔨 Usage
 
-После установки пакета Sppq вы можете импортировать его в свой код Python, чтобы получить доступ к его функциям.
+After installing the Sppq package, you can import it into your Python code to access its functions:
 
 ```python
 from sppq import *
 ```
 
-## Функции
+## ⚙️ Functions
 
-Sppq предоставляет следующие функции
+Sppq provides the following powerful functions:
 
-- `bigtext(text)`: Использует ASCII текст для вывода
-- `cl()`: Очищает консоль
-- `retell(url)`: Функция для обобщения или пересказа контента по заданному URL.
-- `percent(one, two)`: Вычисляет процент одного числа к другому.
-- `ask_gpt(prompt)`: Взаимодействует с GPT для предоставления ответов на запросы.
-- `printt(text, speed)`: Медленная печать в консоль
-- `pbarupdate(pb)`: Обновляет индикатор выполнения.
-- `pbar()`: Инициализирует индикатор выполнения.
-- `color2rgb('color')`: Переводит цвет в RGB
-- `send_webhook(webhook_url, description, embed, file, title, color, author_name, author_url, author_icon_url, footer_text, footer_icon_url, thumbnail_url, username, avatar_url, content)`: Отправляетч через вебхук в дискорд
+### 📝 Text and Console Operations
+- `bigtext(text)`: ✨ Uses ASCII text for output
+- `cl()`: 🧹 Clears the console
+- `printt(text, speed)`: ⌨️ Slow printing to console
 
-## Примеры
+### 🤖 AI and Content Processing
+- `retell(url)`: 📚 Summarizes or retells content from a given URL
+- `ask_gpt(prompt)`: 🤔 Interacts with GPT for responses
 
-Вот несколько примеров использования библиотеки Sppq:
+### 📊 Utilities
+- `percent(one, two)`: 💯 Calculates percentage between numbers
+- `pbar()`: 📊 Initializes a progress bar
+- `pbarupdate(pb)`: 🔄 Updates the progress bar
+- `color2rgb('color')`: 🎨 Converts color to RGB
 
+### 🔌 Integration
+- `send_webhook(...)`: 📡 Sends messages through Discord webhook
+  ```python
+  send_webhook(
+      webhook_url,      # Discord webhook URL
+      description,      # Message description
+      embed,           # Embed content
+      file,            # File attachment
+      title,           # Message title
+      color,           # Embed color
+      author_name,     # Author name
+      author_url,      # Author URL
+      author_icon_url, # Author icon
+      footer_text,     # Footer text
+      footer_icon_url, # Footer icon
+      thumbnail_url,   # Thumbnail
+      username,        # Bot username
+      avatar_url,      # Bot avatar
+      content          # Message content
+  )
+  ```
+
+## 💡 Examples
+
+Here are some examples to get you started with Sppq:
+
+### 🔤 Big Text Display
 ```python
 from sppq import *
 print(bigtext('Hello world!'))
 ```
 
+### ⌨️ Slow Printing
 ```python
 from sppq import *
 printt('Hello world!')
 ```
 
+### 🤖 GPT Interaction
 ```python
 from sppq import *
-print(ask_gpt('Как дела?'))
+print(ask_gpt('How are you?'))
 ```
 
+### 📊 Progress Bar
 ```python
 from sppq import *
 import time
@@ -88,10 +125,14 @@ for i in range(100):
     time.sleep(1)
 ```
 
-```py
+### 🎨 Color Conversion
+```python
 from sppq import *
 printt(color2rgb('red'))
 ```
-```py
+
+### 📡 Discord Webhook
+```python
+from sppq import *
 printt(text=send_webhook('https://discord.com/api/webhooks/...'))
 ```
